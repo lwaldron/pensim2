@@ -16,7 +16,7 @@ output:
 
 # Introduction
 
-This package acts as a wrapper to the \emph{penalized} R package to
+This package acts as a wrapper to the *penalized* R package to
 add the following functionality to that package:
 
 * repeated tuning on different data folds, with parallelization to
@@ -29,14 +29,15 @@ add the following functionality to that package:
 It also provides a function for simulation of collinear
 high-dimensional data with survival or binary response.
 
-This package was developed in support of the study by @waldron_optimized_2011.  This paper contains greater detail
+This package was developed in support of the study by @waldron_optimized_2011.  
+This paper contains greater detail
 on proper application of the methods provided here.  Please cite this
 paper when using the pensim package in your research, as well as the
 penalized package (@goeman_l1_2010).
 
 # Example data
 
-pensim provides example data from a microarray experiment
+*pensim* provides example data from a microarray experiment
 investigating survival of cancer patients with lung adenocarcinomas
 (@beer_gene-expression_2002).  Load this data
 and do an initial pre-filter of genes with low IQR:
@@ -60,7 +61,7 @@ library(survival)
 surv.obj <- Surv(beer.survival$os, beer.survival$status)
 ```
 
-Note that the expression data are in ``wide'' format, with one column
+Note that the expression data are in "wide" format, with one column
 per predictor (gene).  It is recommended to put covariate data in a
 dataframe object, rather than a matrix.
 
@@ -73,9 +74,9 @@ the opt.nested.crossval function.
 
 
 It is recommended first to establish the arguments for the penalized
-regression by testing on the \emph{penalized} package functions optL1
-(for LASSO), optL2 (for Ridge) or cvl (for Elastic Net).  Here we use
-LASSO.  Setting maxlambda1=5 is not a generally recommended procedure,
+regression by testing on the *penalized* package functions `optL1`
+(for LASSO), `optL2` (for Ridge) or `cvl` (for Elastic Net).  Here we use
+LASSO.  Setting `maxlambda1=5` is not a generally recommended procedure,
 but is useful in this toy example to avoid converging on the null
 model.
 
@@ -93,13 +94,13 @@ testfit <- optL1(
 ```
 
 
-Now pass these arguments to opt.nested.crossval() for cross-validated
+Now pass these arguments to `opt.nested.crossval()` for cross-validated
 calculation and assessment of risk scores, with the additional
 arguments:
 
-* outerfold and nprocessors: number of folds for the outer level of cross-validation, and the number of processors to use for the outer level of cross-validation  (see ?opt.nested.crossval)
-* optFUN and scaling: which optimization function to use (opt1D for LASSO or Ridge, opt2D for Elastic Net) - see ?opt.splitval.
-*   setpen and nsim: setpen defines whether to do LASSO (``L1'') or Ridge (``L2''), nsim defines the number of times to repeat tuning (see ?opt1D.  opt2D has different required arguments.)
+* `outerfold` and `nprocessors`: number of folds for the outer level of cross-validation, and the number of processors to use for the outer level of cross-validation  (see `?opt.nested.crossval`)
+* optFUN and scaling: which optimization function to use (`opt1D` for LASSO or Ridge, `opt2D` for Elastic Net) - see `?opt.splitval`.
+*   setpen and nsim: setpen defines whether to do LASSO ("**L1**") or Ridge ("**L2**"), `nsim` defines the number of times to repeat tuning (see `?opt1D`.  `opt2D` has different required arguments.)
 
 ```{r opt.nested.crossval}
 set.seed(1)
@@ -126,12 +127,12 @@ preds <-
 
 Ideally nsim would be 50, and outerfold and fold would be 10, but the
 values below speed computation 200x compared to these recommended
-values.  Note that here we are using the standardize=TRUE argument of
-optL1 rather than the scaling=TRUE argument of opt.splitval.  These
+values.  Note that here we are using the `standardize=TRUE` argument of
+`optL1` rather than the `scaling=TRUE` argument of opt.splitval.  These
 two approaches to scaling are roughly equivalent, but the scaling
-approaches are not the same (scaling=TRUE does z-score,
-standardize=TRUE scales to unit central L2 norm), and results will not
-be identical.  Also, using standardize=TRUE scales variables but
+approaches are not the same (`scaling=TRUE` does z-score,
+`standardize=TRUE` scales to unit central L2 norm), and results will not
+be identical.  Also, using `standardize=TRUE` scales variables but
 provides coeffients for the original scale, whereas using scaling=TRUE
 scales variables in the training set then applies the same scales to
 the test set.
@@ -155,7 +156,7 @@ preds.dichot <- preds > median(preds)
 Plot the ROC curve:
 
 
-```{r ROCplot, fig.cap="ROC plot of cross-validated continuous risk predictions at 12 months. Note that the predictions are better if you don't randomly select 250 genes to start with!  We only did this to ease the load on the CRAN checking servers."}
+```{r ROCplot, fig.cap="**Figure 1: ROC plot of cross-validated continuous risk predictions at 12 months.** Note that the predictions are better if you don't randomly select 250 genes to start with!  We only did this to ease the load on the CRAN checking servers."}
 library(survivalROC)
 nobs <- length(preds)
 cutoff <- 12
@@ -187,9 +188,9 @@ abline(0, 1)
 Finally, we can get coefficients for the model fit on all the data,
 for future use.  Note that nsim should ideally be greater than 1, to
 train the model using multiple foldings for cross-validation.  The
-output of opt1D or opt2D will be a matrix with one row per simulation.
-The default behavior in opt.nested.crossval() is to take the
-simulation with highest cross-validated partial log likelihood (CVL),
+output of `opt1D` or `opt2D` will be a matrix with one row per simulation.
+The default behavior in `opt.nested.crossval()` is to take the
+simulation with highest cross-validated partial log likelihood (**CVL**),
 which is the recommended way to select a model from the multiple
 simulations.
 
@@ -209,8 +210,8 @@ beer.coefs <- opt1D(
 
 We can also include unpenalized covariates, if desired.  Note that
 when keeping only one variable for a penalized or unpenalized
-covariate, indexing a dataframe like [1] instead of doing [, 1]
-preserves the variable name.  With [, 1] the variable name gets
+covariate, indexing a dataframe like `[1]` instead of doing `[, 1]`
+preserves the variable name.  With `[, 1]` the variable name gets
 converted to "".
 
 ```{r unpenalized.eg}
@@ -246,10 +247,10 @@ outcome or binary outcome which is dependent on specified covariates.
 ## Binary outcome example
 
 First, generate the data.  Here we simulate 20 variables.  The first
-15 (group ``a'') are uncorrelated, and have no association with
-outcome.  The final five (group ``b'') have covariance of 0.8 to each
+15 (**group "a"**) are uncorrelated, and have no association with
+outcome.  The final five (**group "b"**) have covariance of 0.8 to each
 other variable in that group.  The response variable is associated
-with the first variable group ``b'' (firstonly=TRUE) with a
+with the first variable group "b" (`firstonly=TRUE`) with a
 coefficient of 2.
 
 Binary outcomes for $n_s= 50$ samples are simulated as a Bernoulli
@@ -291,7 +292,7 @@ summary(simplemodel)
 ```
 
 But LASSO does a better job, selecting several of the collinear
-variables in the ``b'' group of variables which are associated with
+variables in the "b" group of variables which are associated with
 outcome:
 
 ```{r binarylassodemo}
@@ -311,7 +312,7 @@ print(lassofit)
 And visualize the data as a heatmap:
 
 
-```{r heatmap, fig.cap = "Heatmap of simulated data with binary response."}
+```{r heatmap, fig.cap = "**Figure 2: Heatmap of simulated data with binary response.**"}
 dat <- t(as.matrix(x$data[,-match("outcome", colnames(x$data))]))
 heatmap(dat, ColSideColors = ifelse(x$data$outcome == 0, "black", "white"))
 ```
@@ -319,7 +320,7 @@ heatmap(dat, ColSideColors = ifelse(x$data$outcome == 0, "black", "white"))
 ## Survival outcome example
 
 We simulate these data in the same way, but with
-response=''timetoevent''.  Here censoring is uniform random between
+`response="timetoevent"`.  Here censoring is uniform random between
 times 2 and 10, generating approximately 34\% censoring:
 
 ```{r survoutcome}
@@ -343,7 +344,7 @@ sum(x$data$cens == 0) / nrow(x$data)
 
 Kaplan-Meier plot of this simulated cohort:
 
-```{r simulatedKM, fig.cap = "Kaplan-Meier plot of survival of simulated cohort."}
+```{r simulatedKM, fig.cap = "**Figure 3: Kaplan-Meier plot of survival of simulated cohort.**"}
 library(survival)
 surv.obj <- Surv(x$data$time, x$data$cens)
 plot(survfit(surv.obj ~ 1), ylab = "Survival probability", xlab = "time")

@@ -86,7 +86,7 @@ dat.filt <- t(dat.filt)
 set.seed(1)
 trainingset <- sample(rownames(dat.filt), round(nrow(dat.filt) / 2))
 testset <-
-  rownames(dat.filt)[!rownames(dat.filt) \ %in\% trainingset]
+  rownames(dat.filt)[!rownames(dat.filt) \%in\% trainingset]
 
 dat.training <- data.frame(dat.filt[trainingset, ])
 pheno.training <- beer.survival[trainingset, ]
@@ -119,13 +119,13 @@ output <-
 cc <- output[which.max(output[, "cvl"]),-(1:2)]  #coefficients
 sum(abs(cc) > 0)  #count non-zero coefficients
 
-preds.training <- as.matrix(dat.training) \ %*\% cc
+preds.training <- as.matrix(dat.training) \%*\% cc
 preds.training.median <- median(preds.training)
 preds.training.dichot <-
   ifelse(preds.training > preds.training.median, "high risk", "low risk")
 preds.training.dichot <-
   factor(preds.training.dichot[, 1], levels = c("low risk", "high risk"))
-preds.test <- as.matrix(dat.test) \ %*\% cc
+preds.test <- as.matrix(dat.test) \%*\% cc
 preds.test.dichot <-
   ifelse(preds.test > preds.training.median, "high risk", "low risk")
 preds.test.dichot <-
