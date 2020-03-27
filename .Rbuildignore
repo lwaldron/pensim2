@@ -1,2 +1,4 @@
+^_.*$
+update.sh
 ^.*\.Rproj$
 ^\.Rproj\.user$
