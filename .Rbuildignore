@@ -1,3 +1,4 @@
+^docs.*$
 ^_.*$
 update.sh
 ^.*\.Rproj$
