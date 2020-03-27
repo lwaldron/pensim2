@@ -185,10 +185,10 @@ plot(
   main = "TRAINING",
   ylab = "Overall survival"
 )
-xmax <- par("usr")[2] - 5
+xmax <- par("usr")[2] - 50
 text(
   x = xmax,
-  y = 0.35,
+  y = 0.4,
   lab = paste("HR=", hr.training),
   pos = 2
 )
@@ -200,8 +200,8 @@ text(
 )
 tmp <- summary(preds.training.dichot)
 text(
-  x = c(xmax, xmax),
-  y = c(0.25, 0.2),
+  x = xmax,
+  y = c(0.2, 0.1),
   lab = paste(tmp, names(tmp)),
   col = 1:2,
   pos = 2
@@ -221,10 +221,9 @@ plot(
   xlab = "Months",
   main = "TEST"
 )
-xmax <- par("usr")[2]
 text(
   x = xmax,
-  y = 0.35,
+  y = 0.4,
   lab = paste("HR=", hr.test),
   pos = 2
 )
@@ -236,8 +235,8 @@ text(
 )
 tmp <- summary(preds.test.dichot)
 text(
-  x = c(xmax, xmax),
-  y = c(0.25, 0.2),
+  x = xmax,
+  y = c(0.2, 0.1),
   lab = paste(tmp, names(tmp)),
   col = 1:2,
   pos = 2
