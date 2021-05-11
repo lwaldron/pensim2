@@ -57,4 +57,4 @@ as evidenced by reduced prediction accuracy in simulated test sets
 compared to resubstitution of training data.**
 
 [Section 4]: https://academic.oup.com/bioinformatics/article/27/24/3399/306905#SEC4
-[manuscript]: https://bioinformatics.oxfordjournals.org/content/27/24/3399
+[manuscript]: https://doi.org/10.1093/bioinformatics/btr591
