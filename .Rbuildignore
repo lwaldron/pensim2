@@ -4,3 +4,4 @@ update.sh
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.*\.yml$
+^\.github$
