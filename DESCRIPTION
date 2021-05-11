@@ -2,7 +2,7 @@ Package: pensim
 Type: Package
 Title: Simulation of High-Dimensional Data and Parallelized Repeated 
     Penalized Regression
-Version: 1.3.3
+Version: 1.3.4
 Author: Levi Waldron <lwaldron.research@gmail.com>
 Maintainer: Levi Waldron <lwaldron.research@gmail.com>
 Depends: R (>= 2.10.0)
